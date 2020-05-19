@@ -82,17 +82,15 @@ export default {
       return false
     },
     resolvePath(routePath) {
+      if (isExternal(routePath)) {
+        return routePath
+      }
+      if (isExternal(this.basePath)) {
+        return this.basePath
+      }
       const currentRoutes = this.$store.state.permission.currentRoutes
       if (currentRoutes && currentRoutes.path) {
-        return path.resolve(currentRoutes.path, this.basePath)
-      } else {
-        if (isExternal(routePath)) {
-          return routePath
-        }
-        if (isExternal(this.basePath)) {
-          return this.basePath
-        }
-        return path.resolve(this.basePath, routePath)
+        return path.resolve(currentRoutes.path, this.basePath, routePath)
       }
     }
   }

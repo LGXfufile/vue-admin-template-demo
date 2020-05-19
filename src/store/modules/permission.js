@@ -11,8 +11,8 @@ const mutations = {
     state.addRoutes = routes
     state.routes = constantRoutes.concat(routes)
   },
-  SET_CURRENT_ROUTES: (state, routes) => {  
-     state.currentRoutes = routes
+  SET_CURRENT_ROUTES: (state, routes) => {
+    state.currentRoutes = routes
   }
 }
 
