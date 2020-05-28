@@ -8,20 +8,12 @@
       @select="handleSelect"
     >
       <div v-for="item in routes" :key="item.path" class="nav-item">
-        <div v-if="isOnlyOneChild(item)">
-          <app-link :to="resolvePath(item)">
-            <el-menu-item
-              v-if="!item.hidden"
-              :index="item.path"
-            >{{ item.meta ? item.meta.title : item.children[0].meta.title }}</el-menu-item>
-          </app-link>
-        </div>
-        <div v-else>
+        <app-link :to="resolvePath(item)">
           <el-menu-item
             v-if="!item.hidden"
             :index="item.path"
           >{{ item.meta ? item.meta.title : item.children[0].meta.title }}</el-menu-item>
-        </div>
+        </app-link>
       </div>
     </el-menu>
 
@@ -125,14 +117,36 @@ export default {
         const path = item.redirect
         return path
       }
+
       // 如果有子项，默认跳转第一个子项路由
-      if (item.children) {
-        if (isExternal(item.children[0].path)) {
-          return item.children[0].path
+      let path = ''
+      /**
+       * item 路由子项
+       * parent 路由父项
+       */
+      const getDefaultPath = (item, parent) => {
+        // 如果path是个外部链接（不建议），直接返回链接，存在个问题：如果是外部链接点击跳转后当前页内容还是上一个路由内容
+        if (isExternal(item.path)) {
+          path = item.path
+          return
         }
-        const path = item.path + '/' + item.children[0].path
+        // 第一次需要父项路由拼接，所以只是第一个传parent
+        if (parent) {
+          path += (parent.path + '/' + item.path)
+        } else {
+          path += ('/' + item.path)
+        }
+        // 如果还有子项，继续递归
+        if (item.children) {
+          getDefaultPath(item.children[0])
+        }
+      }
+
+      if (item.children) {
+        getDefaultPath(item.children[0], item)
         return path
       }
+
       return item.path
     },
     handleSelect(key, keyPath) {
