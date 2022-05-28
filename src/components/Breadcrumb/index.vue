@@ -19,14 +19,14 @@ export default {
       levelList: null
     }
   },
-  watch: {
-    $route() {
-      this.getBreadcrumb()
-    }
-  },
-  created() {
-    this.getBreadcrumb()
-  },
+  // watch: {
+  //   $route() {
+  //     this.getBreadcrumb()
+  //   }
+  // },
+  // created() {
+  //   this.getBreadcrumb()
+  // },
   methods: {
     getBreadcrumb() {
       // only show routes with meta.title

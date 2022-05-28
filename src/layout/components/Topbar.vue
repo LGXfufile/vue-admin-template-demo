@@ -1,6 +1,6 @@
 <template>
   <div class="top-nav">
-    <div class="log">带一级导航的后台管理系统</div>
+    <div class="log">影视工具集锦</div>
     <el-menu
       :active-text-color="variables.menuActiveText"
       :default-active="activeMenu"
