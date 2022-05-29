@@ -1,10 +1,10 @@
 <template>
   <el-container>
-<!--    <el-row class="headerSelf">-->
-<!--      <span>-->
-<!--        <el-menu-item index="1">文案搜索工具</el-menu-item>-->
-<!--      </span>-->
-<!--    </el-row>-->
+    <!--    <el-row class="headerSelf">-->
+    <!--      <span>-->
+    <!--        <el-menu-item index="1">文案搜索工具</el-menu-item>-->
+    <!--      </span>-->
+    <!--    </el-row>-->
     <el-header>
       <el-row>
         <el-col :span="8">
@@ -19,9 +19,9 @@
           <!--            &lt;!&ndash;                <el-menu-item index="2-1">微信赞助</el-menu-item>&ndash;&gt;-->
           <!--            &lt;!&ndash;              </el-submenu>&ndash;&gt;-->
           <!--          </el-menu>-->
-<!--          <div class="xxx">-->
-<!--            影视剧文案万能搜索工具-->
-<!--          </div>-->
+          <!--          <div class="xxx">-->
+          <!--            影视剧文案万能搜索工具-->
+          <!--          </div>-->
           <!--        <el-menu>-->
           <!--          <el-menu-item class="xxx"></el-menu-item>-->
           <!--        </el-menu>-->
@@ -78,8 +78,8 @@
           </el-table>
           <el-pagination
             :current-page="cur_page"
-            :page-sizes="[15, 50, 100]"
-            :page-size="15"
+            :page-sizes="pageArray"
+            :page-size="pageSize"
             layout="total, sizes, prev, pager, next, jumper"
             :total="dataSizes"
             @size-change="handleSizeChange"
@@ -128,6 +128,7 @@ export default {
       dialogVisible: false,
       cur_page: 1,
       pageSize: 15,
+      pageArray: [],
       pagination: {
         defaultPageSize: 12
       },
@@ -191,6 +192,7 @@ export default {
       }
     },
     initData() {
+      this.pageArray = [this.pageSize, 50, 100],
       axios.get(this.baseUrl + '/selectAll')
         .then(res => {
           console.log(res.data)
@@ -209,6 +211,7 @@ export default {
         .then(res => {
           console.log(res.data)
           this.tableData = res.data.data
+          this.dataSizes = res.data.data.length
           console.log(this.tableData)
         })
     },
@@ -355,7 +358,7 @@ export default {
   position: absolute;
   left: 0;
   right: 0;
-  top: 10px;
+  top: 150px;
   bottom: 0;
   overflow-y: scroll;
   height: 100%;
