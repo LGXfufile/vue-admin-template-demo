@@ -1,3 +1,0 @@
-window.server = {
-  baseUrl: "localhost"
-}
