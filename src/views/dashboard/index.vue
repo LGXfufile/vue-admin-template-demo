@@ -135,7 +135,8 @@ export default {
       result: {
         title: ''
       },
-      baseUrl: 'http://localhost:8081',
+      // baseUrl: 'http://localhost:8081',
+      baseUrl: 'http://106.54.179.232:8081',
       filesUploadUrl: 'http://localhost:9999/upload',
       tableData: []
     }
